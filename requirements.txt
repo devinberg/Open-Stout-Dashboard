@@ -2,5 +2,4 @@ pandas
 datetime
 IPython
 matplotlib
-json
 requests
