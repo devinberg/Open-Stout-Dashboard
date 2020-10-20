@@ -1,0 +1,27 @@
+name: Update notebook
+
+on:
+  schedule:
+    - cron: "5 10 * * 6" # once per week
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install papermill ipykernel
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Execute notebook
+      run: |
+        papermill OpenAtStout_dashboard.ipynb OpenAtStout_dashboard.ipynb
+    - name: Commit and push files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add OpenAtStout_dashboard.ipynb
+        git commit -m "Update notebook" -a
+        git push origin master -f
