@@ -26,4 +26,4 @@ jobs:
         git config --local user.name "GitHub Action"
         git add OpenAtStout_dashboard.ipynb
         git commit -m "Update notebook" -a
-        git push origin master -f
+        git push origin main -f
